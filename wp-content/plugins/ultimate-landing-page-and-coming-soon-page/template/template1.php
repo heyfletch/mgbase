@@ -104,22 +104,6 @@ z-index:-1
 				<tr valign="top">
 					<td id="description"><?php echo $ulp_options['description'] ?></td>
 				</tr>
-				<tr>
-					 <td align="center">
-					 <!--<input type="text" size="30">&nbsp;&nbsp;<input id="my_submit" type="submit" value="Sign me up"> -->
-
-					<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit='window.open("http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $ulp_options['feedburner_address'] ?>", "popupwindow", "scrollbars=yes,width=550,height=520");return true'>
-                    <input type="hidden" value="<?php echo $ulp_options['feedburner_address'] ?>" name="uri"/>
-                    <input type="hidden" name="loc" value="en_US"/>
-		    <input type="hidden" name="landing_page_id" value="<?php echo $ulp_options['landing_page_id'] ?>"/>
-                    <input id="notify-email" type="text" name="email" placeholder="Enter Your Email"/>
-
-                    <button id="notify-btn" type="submit">Add Me!</button>
-    			</form>
-
-
-</td>
-				</tr>
 			</td>
 		</tr>
 	</table>
