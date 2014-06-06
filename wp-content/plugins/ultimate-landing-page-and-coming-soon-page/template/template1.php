@@ -11,7 +11,7 @@ $ulp_options = get_option('ulp_options');
 <html>
 <head>
 <title><?php echo stripslashes($ulp_options['title']) ?></title>
-<!-- Version: 1.1.25 -->
+<!-- Version: 1.1.27 -->
 <!-- <link rel="stylesheet" href="<?php echo plugins_url('template/style.css',dirname(__FILE__)); ?>"> -->
 <link href='http://fonts.googleapis.com/css?family=<?php echo str_replace(" ", "+", $ulp_options['headline_font'])."|".str_replace(" ", "+", $ulp_options['description_font']) ?>' rel='stylesheet' type='text/css'>
 
@@ -103,6 +103,22 @@ z-index:-1
 				</tr>
 				<tr valign="top">
 					<td id="description"><?php echo $ulp_options['description'] ?></td>
+				</tr>
+				<tr>
+					 <td align="center">
+					 <!--<input type="text" size="30">&nbsp;&nbsp;<input id="my_submit" type="submit" value="Sign me up"> -->
+
+					<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit='window.open("http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $ulp_options['feedburner_address'] ?>", "popupwindow", "scrollbars=yes,width=550,height=520");return true'>
+                    <input type="hidden" value="<?php echo $ulp_options['feedburner_address'] ?>" name="uri"/>
+                    <input type="hidden" name="loc" value="en_US"/>
+		    <input type="hidden" name="landing_page_id" value="<?php echo $ulp_options['landing_page_id'] ?>"/>
+                    <input id="notify-email" type="text" name="email" placeholder="Enter Your Email"/>
+
+                    <button id="notify-btn" type="submit">Add Me!</button>
+    			</form>
+
+
+</td>
 				</tr>
 			</td>
 		</tr>
