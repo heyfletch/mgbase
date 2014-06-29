@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.2.1.1
+Stable tag: 2.2.2
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -246,10 +246,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.2.2 =
+* [Fixed] Custom Fields for Media Library did not work.
+* [Fixed] Column type dropdown displayed an empty item.
+
 = 2.2.1.1 =
 * [Fixed] Fixed issue with Posts 2 Posts (and other third party plugins) columns not being displayed because of  hooking into late actions on post pages
-* [Updated] Added russian language, thanks to Arnold Klimenko.
-* [Updated] Updated translations from Transifex
 
 = 2.2.1 =
 * [Added] Option to make permalink in permalink column clickable (linking to post)
@@ -329,7 +331,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 2.0.1 =
 * [Fixed] Bug which caused columns to not include properly
 
-= 2.0.0 =
+= 2.0 =
 * [Notice] Database needs an update, make sure to backup first
 * [Changed] Sortorder licence is now an Pro Add-on
 * [Changed] Some filters and hooks have been changed, see online documentation
