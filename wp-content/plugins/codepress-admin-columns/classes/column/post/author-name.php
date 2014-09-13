@@ -1,6 +1,7 @@
 <?php
 /**
- * CPAC_Column_Post_Author_Name
+ * Column displaying information about the author of a post, such as the
+ * author's display name, user ID and email address.
  *
  * @since 2.0
  */
@@ -8,7 +9,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
-	 * @since 2.3
+	 * @since 2.2.1
 	 */
 	public function init() {
 

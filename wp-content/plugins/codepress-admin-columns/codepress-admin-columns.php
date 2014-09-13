@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.2.4
+Version: 			2.2.6.4
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepresshq.com
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) )  {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.2.4' ); // current plugin version
+define( 'CPAC_VERSION', 	 	'2.2.6.4' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -50,6 +50,7 @@ if ( ! is_admin() ) {
  */
 require_once CPAC_DIR . 'classes/utility.php';
 require_once CPAC_DIR . 'classes/third_party.php';
+require_once CPAC_DIR . 'includes/arrays.php';
 require_once CPAC_DIR . 'api.php';
 
 /**
@@ -97,7 +98,7 @@ class CPAC {
 		add_action( 'init', array( $this, 'localize' ) );
 
 		// Storage models
-		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
+		add_action( 'wp_loaded', array( $this, 'set_storage_models_on_cac_screen' ), 5 );
 
 		// Setup callback, important to load after set_storage_models
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
@@ -148,25 +149,22 @@ class CPAC {
 	}
 
 	/**
-	 * Whether this request is an AJAX request
+	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
 	 *
 	 * @since 2.2
      * @return bool Returns true if in an AJAX request, false otherwise
 	 */
 	function is_doing_ajax() {
 
-		$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+			return false;
+		}
 
-		/**
-		 * Filter whether the current request should be marked as an AJAX request
-		 * Useful for custom AJAX calls
-		 *
-		 * @since 2.2
-		 * @param bool $doing_ajax Whether the current request is an AJAX request
-		 */
-		$doing_ajax = apply_filters( 'cac/is_doing_ajax', $doing_ajax );
+		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
+			return true;
+		}
 
-		return $doing_ajax;
+		return false;
 	}
 
 	/**
@@ -218,6 +216,7 @@ class CPAC {
 	 * @return bool Whether the current screen is an Admin Columns screen
 	 */
 	function is_cac_screen() {
+
 		/**
 		 * Filter whether the current screen is a screen in which Admin Columns is active
 		 *
@@ -241,14 +240,15 @@ class CPAC {
 			add_action( 'admin_head', array( $this, 'admin_scripts') );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
+			wp_enqueue_script( 'jquery-floatthead' );
 
 			$data = array();
 
-			if ( $storage_model = $this->get_current_storage_model() ) {
+			/*if ( $storage_model = $this->get_current_storage_model() ) {
 				$data['storage_model'] = array(
 					'is_table_header_fixed' => $storage_model->is_table_header_fixed()
 				);
-			}
+			}*/
 
 			wp_localize_script( 'cpac-admin-columns', 'CPAC', $data );
 
@@ -268,19 +268,29 @@ class CPAC {
    		}
 	}
 
+		/**
+	 * @since 2.0
+	 */
+	public function set_storage_models_on_cac_screen() {
+
+		if ( ! $this->is_cac_screen() ) {
+			return;
+		}
+
+		$this->set_storage_models();
+	}
+
 	/**
 	 * @since 2.0
 	 */
 	public function set_storage_models() {
-
-		if ( ! $this->is_cac_screen() )
-			return;
 
 		$storage_models = array();
 
 		// include parent and childs
 		require_once CPAC_DIR . 'classes/column.php';
 		require_once CPAC_DIR . 'classes/column/default.php';
+		require_once CPAC_DIR . 'classes/column/actions.php';
 		require_once CPAC_DIR . 'classes/storage_model.php';
 		require_once CPAC_DIR . 'classes/storage_model/post.php';
 		require_once CPAC_DIR . 'classes/storage_model/user.php';
@@ -352,11 +362,13 @@ class CPAC {
 
 		$post_types = array();
 
-		if ( post_type_exists( 'post' ) )
+		if ( post_type_exists( 'post' ) ) {
 			$post_types['post'] = 'post';
+		}
 
-		if ( post_type_exists( 'page' ) )
+		if ( post_type_exists( 'page' ) ) {
 			$post_types['page'] = 'page';
+		}
 
 		$post_types = array_merge( $post_types, get_post_types( array(
 			'_builtin' 	=> false,
@@ -381,7 +393,7 @@ class CPAC {
 			return $links;
 		}
 
-		array_unshift( $links, '<a href="' . admin_url("options-general.php") . '?page=codepress-admin-columns">' . __( 'Settings' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( admin_url( "options-general.php?page=codepress-admin-columns" ) ) . '">' . __( 'Settings' ) . '</a>' );
 		return $links;
 	}
 
@@ -407,13 +419,8 @@ class CPAC {
 	 * @return string
 	 */
 	function admin_class( $classes ) {
-
-		if ( $this->storage_models ) {
-			foreach ( $this->storage_models as $storage_model ) {
-				if ( $storage_model->is_columns_screen() ) {
-					$classes .= " cp-{$storage_model->key}";
-				}
-			}
+		if ( $storage_model = $this->get_current_storage_model() ) {
+			$classes .= " cp-{$storage_model->key}";
 		}
 
 		return $classes;
@@ -459,7 +466,7 @@ class CPAC {
 
 				// JS: edit button
 				$general_options = get_option( 'cpac_general_options' );
-				if ( current_user_can( 'manage_admin_columns' ) && isset( $general_options['show_edit_button'] ) && '1' === $general_options['show_edit_button'] ) {
+				if ( current_user_can( 'manage_admin_columns' ) && ( ! isset( $general_options['show_edit_button'] ) || '1' === $general_options['show_edit_button'] ) ) {
 					$edit_link = $storage_model->get_edit_link();
 				}
 			}

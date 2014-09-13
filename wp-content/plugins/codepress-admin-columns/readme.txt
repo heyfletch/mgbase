@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd, engelen
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: 2.2.4
+Tested up to: 3.9.2
+Stable tag: 2.2.6.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -247,6 +247,33 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 2.2.6.4 =
+* [Updated] Portuguese (Brazil) language - thanks to André Mácola Machado
+
+= 2.2.6.3 =
+* [Updated] Enable 3rd party plugins to set storage_models outside the post listings screens
+* [Updated] Spanish language updated - thanks to Andrew Kurtis
+
+= 2.2.6.2 =
+* [Fixed] Fixed “Illegal offset” warning for unset option on edit screen
+
+= 2.2.6.1 =
+* [Fixed] Fixed dependency on PHP 5.3+ in actions column
+
+= 2.2.6 =
+* [Changed] Display "edit columns" button by default
+* [Improved] Improved memory usage by only loading columns for the current screen
+* [Changed] Removed floatHead library
+* [Updated] Only display ACF placeholder with ACF active.
+
+= 2.2.5.1 =
+* [Fixed] Unavailable included JS-file on editing pages
+
+= 2.2.5 =
+* [Fixed] Error with actions icons.
+* [Added] New Column! Used-by-menu column; will display in which menu a post/page/taxonomy is being used. With support for column sorting in posts.
+* [Fixed] Only ajax calls from cpac will trigger the loading of storage_models now.
 
 = 2.2.4 =
 * [Added] New filter `cpac/storage_model/columns_default` for filtering the columns that should be loaded if there are no stored columns
