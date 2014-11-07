@@ -4,7 +4,7 @@ Donate link: http://www.thinklandingpages.com
 Tags: landing page, coming soon page, maintenance page, email list, squeeze page, list building, video landing page, contest landing page, email optin landing page, landing page design, landing page templates, free landing page templates, music landing page, real estate landing page, affiliate landing page, conversion landing page, easy landing page, financial landing page, book landing page, ebook landing page, product landing page, launch page
 Requires at least: 3.0
 Tested up to: 3.9.2
-Stable tag: 1.1.30
+Stable tag: 1.1.33
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,7 @@ Create a landing page or coming soon page in as little as 5 minutes without any 
 
 
 *  Create a landing page with a customizable permalink to build your email list
+*  Create a landing page or coming soon page in 5 minutes
 *  Launch a one page coming soon site and collect emails to notify those interested when your site or product is ready
 *  Add your logo for branding you
 *  Choose a background color or add a background image to make the page uniquely yours
@@ -41,6 +42,10 @@ Create a landing page or coming soon page in as little as 5 minutes without any 
 *  Gateway Page to show your offer to every visitor
 *  Create video landing pages
 *  And more...
+
+###Created for Marketers and Designers
+
+I created this plugin with marketers and designers in mind.  It is easy to use whether you are building your own list or helping your clients build their list.  I use this plugin for all of my landing pages and coming soon pages.  I guarantee it will work for you.
 
 *  [Free Upgrade to the Advanced Lite version!](http://www.thinklandingpages.com/landingpage/wordpress-landing-page-plugin-2-2/?utm_source=inside%20landing%20page%20plugin%20repoBottom-to-feature-page&utm_medium=plugin&utm_campaign=inside%20landing%20page%20plugin%20repoBottom-to-feature-page)
 
@@ -68,6 +73,9 @@ Yes, this is a plugin and will work with your existing theme.
 
 = Does the Pro Version allow me to turn off the default form? =
  Yes, you can turn off the default form in the Pro Version.
+ 
+= Does the Advanced version allow me to use Aweber, Mailchimp, or Custom forms? =
+Yes, you can add any form you like.  In addition you can use Aweber and Mailchimp with the default form.
 
 == Screenshots ==
 
@@ -164,5 +172,14 @@ Yes, this is a plugin and will work with your existing theme.
 
 = 1.1.30 =
 * Added font Rajdhani
+
+= 1.1.31 =
+* Added font Hind
+
+= 1.1.32 =
+* Added font Kotta One
+
+= 1.1.33 =
+* Added font Monoton
 
 == Upgrade Notice ==
