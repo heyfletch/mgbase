@@ -5,7 +5,7 @@
  *
  * @since 2.0
  */
-class CPAC_Column_Post_Author_Name extends CPAC_Column {
+class CPAC_Column_Post_Last_Modified_Author extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
@@ -16,10 +16,9 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 			= 'column-author_name';
-		$this->properties['label']	 			= __( 'Display Author As', 'cpac' );
+		$this->properties['type']	 			= 'column-last_modified_author';
+		$this->properties['label']	 			= __( 'Last Modified Author', 'cpac' );
 		$this->properties['is_cloneable']		= true;
-		$this->properties['object_property']	= 'post_author';
 
 		// Options
 		$this->options['display_author_as'] = '';
@@ -45,8 +44,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $post_id ) {
-
-		return get_post_field( 'post_author', $post_id );
+		return get_post_meta( $post_id, '_edit_last', true );
 	}
 
 	/**
